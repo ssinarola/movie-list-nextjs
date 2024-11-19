@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+  font-family: "Montserrat";
+}
+.footer {
+  content: "";
+  background: no-repeat url("./Vectors.png");
+  background-size: cover;
+}
+
+.input {
+  @apply font-normal text-body-sm leading-body-sm bg-input text-white rounded-[10px] block w-full py-2.5 px-4 border border-input active:bg-white focus:bg-white focus:text-input active:text-input;
+}
