@@ -4,11 +4,10 @@ import React from 'react'
 
 const MovieCard = ({ movie, index }) => {
     return (
-        <div key={movie._id} className="p-2 bg-card rounded-xl flex flex-col justify-between hover:bg-gray-light cursor-pointer">
+        <div key={movie._id} className="p-0 xl:p-2 bg-card rounded-xl flex flex-col justify-between hover:bg-gray-light cursor-pointer">
             <Link href={`/movie/${movie._id}`} className="flex justify-center" style={{ flex: '1 1 auto' }} >
                 <Image
-                    className='rounded-xl'
-                    style={{ width: '100%', height: '400px' }}
+                    className='rounded-t-xl xl:rounded-xl object-cover w-full xl:h-[400px] h-[334px]'
                     width={266}
                     height={400}
                     src={movie?.imageUrl ?? 'fallback-image-url'}
