@@ -1,27 +1,42 @@
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URL;
+// function dbConnect() {
+//     mongoose.set('strictQuery', true)
+//     if (mongoose.connections[0].readyState) {
+//         console.log('Already connected with database');
+//         return
+//     }
+//     mongoose.connect(process.env.MONGODB_URL)
+//     mongoose.connection.on('connected', () => {
+//         console.log("Connected with database.")
+//     })
+//     mongoose.connection.on('error', (error) => {
+//         console.log("Error while connecting", error)
+//     })
+// }
 
-if (!MONGODB_URI) throw new Error("Please define the MONGODB_URI environment variable inside .env.local");
 
-let cached = global.mongoose;
-if (!cached) cached = global.mongoose = { conn: null, promise: null };
+// export default dbConnect
+
+import mongoose from 'mongoose';
 
 async function dbConnect() {
-    if (cached.conn) return cached.conn;
-    if (!cached.promise) {
-        const opts = { bufferCommands: false, };
-        cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => mongoose);
+    mongoose.set('strictQuery', true);
+
+    if (mongoose.connections[0].readyState) {
+        console.log('Already connected to the database');
+        return;
     }
+
     try {
-        cached.conn = await cached.promise;
-        console.log('>>> DB: Connected >>>>');
-    } catch (e) {
-        console.error('>>> DB: Connection error:>>> ', e.message);
-        cached.promise = null;
-        throw e;
+        await mongoose.connect(process.env.MONGODB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log('<<< DB: Connected >>>');
+    } catch (error) {
+        console.error('<<<<DB: Connection error:>>>', error);
     }
-    return cached.conn;
 }
 
 export default dbConnect;
